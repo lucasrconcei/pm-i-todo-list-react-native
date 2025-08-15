@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function TaskRegister() {
   const [task, setTask] = useState("");
+  const [description, setDescription] = useState("");
   const tasksContext = useTaskContext();
   const navigation = useNavigation();
 
@@ -14,10 +15,17 @@ export default function TaskRegister() {
     setTask(task);
   };
 
+  const onChangeDescHandler = (desc) => {
+    setDescription(desc);
+  }
+
   const onPressHandler = () => {
     tasksContext.addTask({
       id: new Date().toISOString(),
-      description: task,
+      title: task,
+      description: description,
+      date_reg: new Date(),
+      date_done: null,
       done: false,
     });
     setTask("");
@@ -31,7 +39,14 @@ export default function TaskRegister() {
         style={styles.taskInput}
         value={task}
         onChangeText={onChangeTextHandler}
-        placeholder="Digite sua tarefa aqui"
+        placeholder="Digite o título da tarefa aqui"
+      />
+      <TextInput
+        style={styles.taskInput}
+        value={description}
+        numberOfLines={4}
+        onChangeText={onChangeDescHandler}
+        placeholder="Digite a descrição da tarefa aqui"
       />
       <View style={globalStyles.taskItemButtons}>
         <PButton icon="plus" mode="contained" onPress={onPressHandler}>
@@ -45,7 +60,8 @@ export default function TaskRegister() {
 const styles = StyleSheet.create({
   taskInputContainer: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "column",
+    gap: "10px",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 16,

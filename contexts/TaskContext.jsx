@@ -10,7 +10,7 @@ export const TaskContext = createContext({
 
 export const TaskContextProvider = ({ children }) => {
   const [tasks, setTasks] = useState([
-    { id: new Date().toISOString(), description: "task", done: false },
+    { id: new Date().toISOString(), title: "task", description: "task teste", data_reg: new Date(), date_done: null, done: false},
   ]);
 
   const addTask = (task) => {
@@ -33,6 +33,7 @@ export const TaskContextProvider = ({ children }) => {
           return t.id === task.id
             ? {
               ...task,
+              date_done: new Date(),
               done: !task.done,
             }
             : t;
@@ -46,7 +47,7 @@ export const TaskContextProvider = ({ children }) => {
   };
 
   return (
-    <TaskContext.Provider value={{ tasks, addTask, removeTask, finishTask, clearTasks }}>
+    <TaskContext.Provider value={{ tasks, addTask, removeTask, finishTask, clearTasks}}>
       {children}
     </TaskContext.Provider>
   );

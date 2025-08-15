@@ -1,4 +1,4 @@
-import { View, ScrollView, Text, StyleSheet } from "react-native";
+import { View, ScrollView, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useTaskContext } from "../contexts/TaskContext";
 import { Button as PButton } from "react-native-paper";
 
@@ -36,8 +36,14 @@ export default function TaskList() {
           {tasksContext.tasks.map((task) => {
             return (
               <View style={styles.taskItem(task)} key={task.id}>
-                <Text style={styles.taskItemText(task)}> {task.description}</Text>
+                <Text style={styles.taskItemText(task)}> {task.title}</Text>
                 <View style={globalStyles.taskItemButtons}>
+
+                  <PButton
+                    mode="contained-tonal"
+                    onPress={() => navigation.navigate('TaskDetails', { task: task })}
+                  >Detalhes</PButton>
+
                   <PButton
                     mode="contained-tonal"
                     onPress={() => onClickTaskHandler(task)}
