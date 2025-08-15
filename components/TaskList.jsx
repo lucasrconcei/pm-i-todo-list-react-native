@@ -41,7 +41,7 @@ export default function TaskList() {
 
                   <PButton
                     mode="contained-tonal"
-                    onPress={() => navigation.navigate('TaskDetails', { task: task })}
+                    onPress={() => { navigation.navigate('TaskDetails', {task: task}) }}
                   >Detalhes</PButton>
 
                   <PButton
